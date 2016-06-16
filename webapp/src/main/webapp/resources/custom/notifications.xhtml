@@ -1,0 +1,49 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:composite="http://java.sun.com/jsf/composite">
+
+<composite:interface>
+
+</composite:interface>
+
+<composite:implementation>
+    <p:growl id="alertGrowl" showDetail="true" />
+    <p:poll interval="5"
+            listener="#{notificationBean.checkNewAlerts()}"
+            update="alertGrowl alertOverlayButton" />
+
+    <p:commandButton id="alertOverlayButton" icon="fa fa-envelope-o fa-fw"
+                     type="button" value=" #{notificationBean.unreadCount}"
+                        onclick="PF('ovl').loadContents()">
+    </p:commandButton>
+
+    <p:overlayPanel id="notificationPanel" dynamic="true" for="alertOverlayButton" hideEffect="fade" style="width:500px" widgetVar="ovl">
+        <p:dataTable id="alertTable" widgetVar="ovlList" rows="8" paginator="true"
+                     var="alert" value="#{notificationBean.alerts}"
+                     emptyMessage="No alerts available">
+
+            <p:column id="icon" style="width:50px">
+                <p:graphicImage name="/images/alert-icon.png" width="16" />
+            </p:column>
+            <p:column id="message">
+                <b> #{alert.text}</b>
+            </p:column>
+            <p:column id="created" style="width:75px">
+                <font size="1"> #{alert.createdAtDate} </font>
+            </p:column>
+        </p:dataTable>
+        <p:commandButton value="All read"
+                         actionListener="#{notificationBean.setAllRead()}"
+                         update="alertTable alertOverlayButton" style="float: right;" />
+    </p:overlayPanel>
+
+</composite:implementation>
+
+</html>

@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<jboss-deployment-structure>
+	<deployment>
+		<dependencies>
+            <system export="true">
+                <paths>
+                	<!-- Actually we need this to avoid class not found exceptions when using java.util.ServiceProvider -->
+                    <path name="com/sun/nio/zipfs"/>
+                </paths>
+            </system>
+			
+            <!-- We need this for the geometry types -->
+            <module name="org.postgresql"/>
+		</dependencies>
+	</deployment>
+</jboss-deployment-structure>

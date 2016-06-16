@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
+    <persistence-unit name="ASE2016-WM" transaction-type="JTA">
+    	<jta-data-source>java:jboss/datasources/ASE2016-WM</jta-data-source>
+    	
+		<mapping-file>META-INF/entities.xml</mapping-file>
+		<class>at.ac.tuwien.ase2016.wm.model.hibernate.type</class>
+
+    	<properties>
+    		<property name="hibernate.hbm2ddl.auto" value="create-drop"/>
+			<!-- We use the logging configuration in standalone.xml to enable this, do not change! -->
+    		<property name="hibernate.show_sql" value="true"/>
+    		<property name="hibernate.format_sql" value="false"/>
+			<property name="hibernate.dialect" value="at.ac.tuwien.ase2016.wm.model.hibernate.dialect.PipelineDBDialect"/>
+    	</properties>
+    </persistence-unit>
+</persistence>

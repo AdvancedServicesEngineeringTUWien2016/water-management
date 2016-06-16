@@ -1,0 +1,73 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	template="/WEB-INF/templates/customerTemplate.xhtml">
+	
+	<ui:define name="title">Overview</ui:define>
+	<ui:define name="head">
+		<h:outputScript name="jqplot.canvasOverlay.min.js"/>
+	</ui:define>
+	
+	<ui:define name="body">
+		<pe:layoutPane position="center">
+			<h:form>
+				<p:poll interval="15" update="charts" />
+				<h:panelGroup id="charts">
+					<script type="text/javascript">
+						//<![CDATA[
+						PrimeFaces.widget.ChartUtils.CONFIGURATORS.line = {
+							configure: function (chart) {
+								chart.cfg.axesDefaults = {
+									labelRenderer: $.jqplot.CanvasAxisLabelRenderer,
+									tickRenderer: $.jqplot.CanvasAxisTickRenderer,
+									tickOptions: {enableFontSupport: !PrimeFaces.isIE(8)}
+								};
+
+								chart.cfg.seriesDefaults = {
+									shadow: chart.cfg.shadow,
+									breakOnNull: chart.cfg.breakOnNull,
+									pointLabels: {
+										show: chart.cfg.showPointLabels ? true : false
+									},
+									rendererOptions: {
+										highlightMouseOver: chart.cfg.highlightMouseOver
+									}
+								};
+
+								if (chart.cfg.stackSeries && chart.cfg.axes.xaxis.renderer !== $.jqplot.DateAxisRenderer) {
+									PrimeFaces.widget.ChartUtils.transformStackedData(chart);
+								}
+
+								if (chart.widgetVar == 'temperatureChart') {
+									chart.cfg.canvasOverlay = {
+										show: true,
+										objects: [
+											#{customerTemperatureErrorModel}
+										]
+									};
+								} else if (chart.widgetVar == 'phValueChart') {
+									chart.cfg.canvasOverlay = {
+										show: true,
+										objects: [
+											#{customerPhValueErrorModel}
+										]
+									};
+								}
+							}
+						};
+						//]]>
+					</script>
+					<p:chart type="line" style="width: 80%" model="#{customerTemperatureChartModel}" widgetVar="temperatureChart" />
+					<p:chart type="line" style="width: 80%" model="#{customerPhValueChartModel}" widgetVar="phValueChart" />
+					<p:chart type="line" style="width: 80%" model="#{customerConsumptionChartModel}" />
+
+				</h:panelGroup>
+			</h:form>
+		</pe:layoutPane>
+	</ui:define>
+	
+</ui:composition>

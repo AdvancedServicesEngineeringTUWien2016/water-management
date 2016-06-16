@@ -1,0 +1,21 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:custom="http://java.sun.com/jsf/composite/custom">
+	
+<p:menubar>
+	<p:menuitem value="Overview" outcome="/customer/index.xhtml"/>
+
+	<f:facet name="options">
+		<custom:notifications id="notificationComponent" />
+		<p:commandButton value="Start Simulation" actionListener="#{customerBean.startSimulation}" />
+		<p:commandButton value="Stop Simulation" actionListener="#{customerBean.stopSimulation}" />
+		<p:commandButton value="Simulate Problem" actionListener="#{customerBean.simulationProblem}" />
+		<p:commandButton value="Logout" icon="ui-icon-extlink" action="#{customerBean.logout()}" ajax="false" />
+	</f:facet>
+</p:menubar>
+
+</ui:composition>

@@ -1,0 +1,60 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<f:view xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:ui="http://java.sun.com/jsf/facelets"
+        xmlns:f="http://java.sun.com/jsf/core"
+		xmlns:p="http://primefaces.org/ui"
+		xmlns:pe="http://primefaces.org/ui/extensions"
+        contentType="text/html"
+        encoding="UTF-8">
+    
+    <ui:insert name="metadata" />
+    
+    <h:head>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+		<title><ui:insert name="title">Template</ui:insert> - Water Management</title>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" />
+		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" />
+		<style type="text/css">
+			.ui-icon.fa {
+				text-indent:0px;
+				background-image:none;
+			}
+			.no-border-grid tr, .no-border-grid td {
+				border: none;
+				border-width: 0px !important;
+			}
+		</style>
+        <ui:insert name="head"/>
+		<style type="text/css">
+			.menu {
+				z-index: 1 !important;
+				overflow: visible;
+			}
+		</style>
+    </h:head>
+    
+    <h:body>
+    	<pe:layout>
+    		<pe:layoutPane position="north" closable="false" resizable="false" spacingOpen="0" styleClassContent="menu">
+    			<h:form id="menuForm">
+					<ui:insert name="navigation">
+						<ui:include src="/WEB-INF/includes/navigation.xhtml" />
+					</ui:insert>
+	    		</h:form>
+	    	</pe:layoutPane>
+    	
+        	<ui:insert name="body"/>
+    	
+    	</pe:layout>
+    	
+        <h:panelGroup id="dialogGroup">
+    		<ui:insert name="dialogs"/>
+    	</h:panelGroup>
+    </h:body>
+</f:view>
+</html>
+
